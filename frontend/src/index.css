@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+/* In Phase 5 of your StockIQ project, we are focusing on building the frontend with React and Tailwind CSS and integrating it with the backend (Flask + MongoDB Atlas).
+
+Phase 5: Frontend Development & Integration
+Here’s what we need to do:
+
+1. UI Components & Pages (React + Tailwind)
+✅ Set up React with Vite (✅ Done)
+✅ Configure Tailwind CSS (✅ Done)
+🎯 Create UI Components:
+📌 Stock Search & Selection Page (User selects stocks for analysis)
+📌 Dashboard Page (Displays all graphs and insights)
+📌 Navbar & Layout Components (For navigation between pages)
+📌 Loading & Error Components (To handle API calls gracefully)
+2. Graph Integration (Using Recharts or Plotly.js)
+🎯 Render StockIQ Graphs in React
+📌 Stock Price with Moving Averages
+📌 Daily Returns
+📌 RSI Over Time
+📌 MACD Over Time (With Buy/Sell Indicators)
+3. API Integration (Connecting React to Flask Backend)
+🎯 Set up Axios or Fetch for API calls
+🎯 Fetch stock data & pass it to graphs
+🎯 Handle loading states and errors
+4. State Management (Using React Context or Redux)
+🎯 Manage selected stock & fetched data globally
+5. Enhancements & Optimization
+🎯 Make UI responsive (For desktop & mobile)
+🎯 Add dark mode support (Using Tailwind’s dark mode)
+🎯 Optimize API calls (Debounce search input, caching, etc.) */
+
+
+/* 
+🔥 Next Step: Phase 6 - Data Integration
+Now, it's time to fetch actual stock data and integrate it into the UI. Here’s the roadmap for Phase 6:
+
+Connect Frontend to Backend API (Flask API)
+Fetch Stock Data (Using Axios/Fetch in React)
+Display Charts Dynamically (Replace placeholders with real-time graphs)
+Handle Loading States & Errors */
+
+
+/* 
+Yes, it is absolutely possible to display the stock data fetched by your Python backend in the frontend.
+
+🚀 Overview of How to Integrate Data from Backend to Frontend
+Expose Flask API Endpoints
+
+Create API routes in your Flask backend to serve stock data (e.g., /api/stocks/{symbol}).
+Return data in JSON format.
+Fetch Data from React Frontend
+
+Use fetch or axios in React to call the Flask API.
+Store the fetched data in React state.
+Display Data in UI Components
+
+Use the stock data in your React components.
+Update charts dynamically with real-time stock prices.
+
+*/

@@ -34,58 +34,6 @@ stock_symbols = {
     "Chevron": "CVX", "Pfizer": "PFE", "Moderna": "MRNA", "Gilead Sciences": "GILD"
 }
 
-
-## ✅ Step 2.3: Save to MongoDB
-# def save_to_mongo(data, ticker):
-#     collection = db[ticker]
-
-#     # Convert DataFrame to dictionary
-#     data_dict = data.to_dict(orient="records")
-
-#     # Ensure keys are valid strings
-#     formatted_data = []
-#     for record in data_dict:
-#         new_record = {str(k): v for k, v in record.items()}  # Convert tuple keys to strings
-#         formatted_data.append(new_record)
-
-#     # Insert data into MongoDB
-#     if formatted_data:
-#         collection.insert_many(formatted_data)
-# def save_to_mongo(data, ticker):
-#     if data.empty:
-#         print(f"⚠️ No data found for {ticker}. Skipping MongoDB save.")
-#         return
-
-#     # ✅ Ensure Date is a column, not an index
-#     data = data.reset_index()  
-
-#     # Convert DataFrame to list of dictionaries
-#     data_dict = data.to_dict(orient="records")  
-
-#     # Ensure valid field names & format data properly
-#     formatted_data = []
-#     for record in data_dict:
-#         formatted_record = {
-#             "ticker": ticker,
-#             "date": record.get("Date", "").strftime("%Y-%m-%d") if isinstance(record.get("Date"), pd.Timestamp) else str(record.get("Date")),  # Convert to string
-#             "open": record.get("Open", None),
-#             "high": record.get("High", None),
-#             "low": record.get("Low", None),
-#             "close": record.get("Close", None),
-#             "volume": record.get("Volume", None),
-#         }
-#         formatted_data.append(formatted_record)
-
-#     # Insert data into MongoDB only if it's not already there
-#     for record in formatted_data:
-#         existing = collection.find_one({"ticker": ticker, "date": record["date"]})
-#         if not existing:
-#             collection.insert_one(record)
-
-#     print(f"✅ Successfully saved {len(formatted_data)} records for {ticker}")
-
-# from datetime import datetime
-
 def save_to_mongo(data, ticker, db):
     if data.empty:
         print(f"⚠️ No data found for {ticker}. Skipping MongoDB save.")
@@ -124,30 +72,8 @@ def save_to_mongo(data, ticker, db):
         print(f"✅ Data for {ticker} saved/updated successfully in MongoDB ({collection_name})!")
     else:
         print(f"⚠️ No new data to update for {ticker}.")
+
 ## Step 2.1: Automate Data Fetching
-# def fetch_stock_data(ticker):
-#     print(f"\n🔄 Fetching latest stock data for {ticker}...")
-#     stock_data = yf.download(ticker, period="5y")
-    
-#     # Ensure columns exist
-#     required_columns = ["Open", "High", "Low", "Close", "Volume"]
-#     for col in required_columns:
-#         if col not in stock_data.columns:
-#             print(f"⚠️ Missing column: {col}. Filling with previous values.")
-#             stock_data[col] = stock_data[col].fillna(method='ffill')
-
-#     # Handle missing values
-#     stock_data.ffill(inplace=True)
-#     stock_data.dropna(inplace=True)
-
-#     # ✅ Save to MongoDB
-#     save_to_mongo(stock_data, ticker)
-
-#     # Save to CSV for storage
-#     stock_data.to_csv(f"stock_data_{ticker}.csv")
-#     print(f"✅ Data saved to stock_data_{ticker}.csv")
-    
-#     return stock_data
 
 def normalize_close_prices(df):
     scaler = MinMaxScaler()
@@ -197,20 +123,6 @@ def fetch_stock_data(ticker):
     print(f"✅ Data saved to stock_data_{ticker}.csv")
     
     return stock_data
-
-# Schedule fetching daily
-# schedule.every().day.at("09:00").do(lambda: fetch_stock_data("AAPL"))
-# for symbol in stock_symbols:
-#     schedule.every().day.at("09:00").do(lambda s=symbol: fetch_stock_data(s))
-# # Run scheduled tasks
-# def run_scheduler():
-#     while True:
-#         schedule.run_pending()
-#         time.sleep(60)
-
-# # ✅ Start scheduler in background
-# scheduler_thread = threading.Thread(target=run_scheduler, daemon=True)
-# scheduler_thread.start()
 
 ## Add Indexing to Improve Performance
 def create_indexes(db):
@@ -298,11 +210,6 @@ if not ticker:
 
 # Fetch and clean stock data
 stock_data = fetch_stock_data(ticker)
-
-# Fetch stock data
-# print(f"\n✅ Fetching stock data for {company_name} ({ticker})...")
-# stock_data = yf.download(ticker, period="5y")
-# stock_data.ffill(inplace=True)
 
 # Ensure columns are in correct format
 stock_data.columns = stock_data.columns.get_level_values(0)
@@ -423,7 +330,3 @@ elif choice == "4":
     plt.legend()
     plt.show()
 
-# Start scheduler in background
-# import threading
-# scheduler_thread = threading.Thread(target=run_scheduler, daemon=True)
-# scheduler_thread.start()
