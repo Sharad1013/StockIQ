@@ -28,7 +28,7 @@ function App() {
           <Route path="/" element={<StockSearch />} />
           <Route path="/dashboard" element={<Dashboard isSidebarOpen={isSidebarOpen} />} />
           <Route path="/currency-exchange" element={<CurrencyConverter />} />
-          <Route path="/stock-analysis" element={<StockAnalysis />} />
+          <Route path="/stock-prediction" element={<StockAnalysis />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/stock-news" element={<StockMarketNews />} />
 

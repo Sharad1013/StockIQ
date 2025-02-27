@@ -126,7 +126,7 @@ const StockMarketNews = () => {
                 href={article.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-auto text-blue-400 block mt-4 hover:underline transition"
+                className="text-blue-400 block mt-4 hover:underline transition"
               >
                 Read More
               </a>
@@ -134,7 +134,7 @@ const StockMarketNews = () => {
           ))
         ) : (
           <p className="text-center text-gray-400 col-span-3">
-            No news found. Try searching for another topic.
+            Loading....
           </p>
         )}
       </div>

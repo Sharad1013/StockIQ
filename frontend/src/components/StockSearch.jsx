@@ -1,10 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { predictStock } from "../api/stockApi"; // API function
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 
 const StockSearch = () => {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [prediction, setPrediction] = useState(null);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const stockList = [
     "AAPL - Apple Inc.",
@@ -71,6 +76,33 @@ const StockSearch = () => {
     }
   };
 
+  const selectStock = async (stock) => {
+    setQuery(stock);
+    setSuggestions([]);
+  
+    const symbol = stock.split(" - ")[0]; // Extract stock symbol
+  
+    try {
+      setError(null);
+      setPrediction(null);
+      const result = await predictStock(symbol);
+  
+      if (result) {
+        setPrediction(result.predicted_price);
+        navigate("/stock-prediction", { 
+          state: { 
+            symbol: symbol, 
+            predicted_price: result.predicted_price 
+          }
+        });
+      } else {
+        setError("Failed to fetch stock prediction");
+      }
+    } catch (err) {
+      setError("An error occurred while fetching prediction");
+    }
+  };
+  
   return (
     <div className="relative flex-grow">
       {/* Video Wrapper - Ensures it does not hide the sidebar */}
@@ -115,6 +147,22 @@ const StockSearch = () => {
               </ul>
             )}
           </div>
+
+          {/* Show Prediction */}
+          {prediction && (
+            <div className="mt-4 text-center">
+              <p className="text-lg text-green-400 font-semibold">
+                Predicted Price: ${prediction}
+              </p>
+            </div>
+          )}
+
+          {/* Show Error Message */}
+          {error && (
+            <div className="mt-4 text-center">
+              <p className="text-lg text-red-500 font-semibold">{error}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

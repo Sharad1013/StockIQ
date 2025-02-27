@@ -8,6 +8,7 @@ import {
   FiDatabase,
   FiSettings,
   FiGlobe,
+  FiTrendingUp 
 } from "react-icons/fi";
 import { MdCurrencyExchange } from "react-icons/md";
 
@@ -62,6 +63,13 @@ const Sidebar = ({ navbarVisible, isSidebarOpen, setIsSidebarOpen }) => {
               {isSidebarOpen && <span>Settings</span>}
             </Link>
           </li>
+          <Link
+            to="/stock-prediction"
+            className="flex items-center space-x-2 hover:text-blue-400"
+          >
+            <FiTrendingUp size={24} />
+            {isSidebarOpen && <span>Stock Prediction</span>}
+          </Link>
           <li>
             <Link
               to="/currency-exchange"

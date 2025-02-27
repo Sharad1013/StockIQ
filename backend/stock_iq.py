@@ -9,7 +9,9 @@ import time
 import pymongo
 from datetime import datetime, timedelta
 from sklearn.preprocessing import MinMaxScaler
-
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression ## use linear regression for prediction
+from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 ## import the collection
 from database import db,get_collection
